@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import random
 from datetime import datetime
+from urllib.parse import quote_plus
+import os
 
 # ==========================================
 # 1. 页面基础配置
@@ -48,20 +50,25 @@ VOCAB_MAP = {
 
 # (3) 真实赛事资讯
 NEWS_DATA = [
-    {'type': '重磅', 'title': '教育部：2025年世界中文大会将在北京召开', 'date': '2025-11-15', 'source': '教育部官网'},
-    {'type': '赛事', 'title': '第24届“汉语桥”世界大学生中文比赛海外预赛启动', 'date': '2025-03-20', 'source': '汉语桥组委会'},
-    {'type': '考试', 'title': '2025年 HSK、HSKK 考试日程表发布', 'date': '2025-01-05', 'source': '汉考国际'},
-    {'type': '活动', 'title': '“国际中文日”：共绘中外文明交流互鉴新画卷', 'date': '2025-04-20', 'source': '语合中心'},
-    {'type': '奖学金', 'title': '2025年国际中文教师奖学金申请办法', 'date': '2025-03-01', 'source': 'CLEC'}
+    {'type': '重磅', 'title': '教育部：2025年世界中文大会将在北京召开', 'date': '2025-11-15', 'source': '教育部官网', 'url': 'http://bridge.chinese.cn/wap/index/pc/news-detail.html?id=28626&type=notice'},
+    {'type': '赛事', 'title': '第24届“汉语桥”世界大学生中文比赛海外预赛启动', 'date': '2025-03-20', 'source': '汉语桥组委会', 'url': 'http://bridge.chinese.cn/wap/index/pc/news-detail.html?id=28166&type=notice'},
+    {'type': '考试', 'title': '2025年 HSK、HSKK 考试日程表发布', 'date': '2025-01-05', 'source': '汉考国际', 'url': 'http://bridge.chinese.cn/wap/index/pc/news-detail.html?id=24834&type=notice'},
+    {'type': '活动', 'title': '“国际中文日”：共绘中外文明交流互鉴新画卷', 'date': '2025-04-20', 'source': '语合中心', 'url': 'https://chineselanguagefestival.com/zh/%E7%AC%AC%E5%85%AD%E5%B1%8A%E5%9B%BD%E9%99%85%E6%B1%89%E8%AF%AD%E8%8A%82_cn/'},
+    {'type': '奖学金', 'title': '2025年国际中文教师奖学金申请办法', 'date': '2025-03-01', 'source': 'CLEC', 'url': 'https://cpipc.acge.org.cn//cw/detail/2c9080158e2ad864018e5fa55a450c49/2c90801896f759470197021604e30b1e'}
 ]
+
+# 为每条资讯补上可点击的链接：优先保留已有 'url'，否则构造搜索链接作为入口
+for _n in NEWS_DATA:
+    if not _n.get('url'):
+        _n['url'] = f"https://www.bing.com/search?q={quote_plus(_n['title'])}"
 
 # (4) 竞赛视频
 VIDEO_DATA = [
-    {'cat': '汉语桥', 'title': '第21届“汉语桥”总决赛：天下一家', 'desc': '感受全球中文高手的巅峰对决。', 'url': 'https://www.bilibili.com/video/BV1Rd4y1B7hB', 'color': '#e74c3c'},
-    {'cat': '经典诵读', 'title': '中华经典诵读大赛：《将进酒》', 'desc': '气势磅礴的唐诗朗诵示范。', 'url': 'https://www.bilibili.com/video/BV1Rs411X7na', 'color': '#3498db'},
-    {'cat': '短视频', 'title': 'HSK短视频大赛金奖：我的中国故事', 'desc': '用镜头记录真实的留学生活。', 'url': 'https://www.bilibili.com/video/BV1XK4y1t7Xn', 'color': '#9b59b6'},
-    {'cat': '教学示范', 'title': '《新时代汉语口语》名师示范课', 'desc': '北语名师讲解口语表达技巧。', 'url': 'https://www.bilibili.com/video/BV1Wt411v7Vj', 'color': '#2ecc71'},
-    {'cat': '文化体验', 'title': '李子柒：中国非遗文化之美', 'desc': '深度体验中国传统手工技艺。', 'url': 'https://www.bilibili.com/video/BV1bb411r7Fp', 'color': '#f1c40f'}
+    {'cat': '汉语桥', 'title': '第二十四届“汉语桥”世界大学生中文比赛全球总决赛精彩回顾', 'desc': '精彩回顾与高光片段。', 'url': 'https://www.bilibili.com/video/BV19Be1zXEwP/?spm_id_from=333.337.search-card.all.click', 'color': '#e74c3c'},
+    {'cat': '经典诵读', 'title': '“汉语桥”在福建的这场告别仪式让人泪目', 'desc': '福建赛区告别仪式现场花絮。', 'url': 'https://www.bilibili.com/video/BV1FKe2zvEaZ?spm_id_from=333.788.videopod.sections', 'color': '#3498db'},
+    {'cat': '短视频', 'title': '墨西哥选手艾乐恩用传统皮影戏诉说中国传奇故事', 'desc': '选手用皮影戏讲述中国故事的精彩表演。', 'url': 'https://www.bilibili.com/video/BV1LdeGzAEWr?spm_id_from=333.788.videopod.sections', 'color': '#9b59b6'},
+    {'cat': '教学示范', 'title': '我是怎么赢的汉语桥中文比赛', 'desc': '选手分享备赛经验与心得。', 'url': 'https://www.bilibili.com/video/BV1oT4y1K75c/?spm_id_from=333.337.search-card.all.click', 'color': '#2ecc71'},
+    {'cat': '文化体验', 'title': '20251129 宁夏卫视 第24届汉语桥世界大学生中文比赛', 'desc': '宁夏卫视对总决赛的电视报道剪辑。', 'url': 'https://www.bilibili.com/video/BV1KnSqBMEXW/?spm_id_from=333.337.search-card.all.click', 'color': '#f1c40f'}
 ]
 
 # (5) 动态生成题库 (逻辑移植)
@@ -100,14 +107,24 @@ with st.sidebar:
 if menu == "🏠 赛事资讯":
     st.title("📢 赛事与考试资讯")
     for news in NEWS_DATA:
+        # 点击跳转：优先使用条目中的 'url'，否则构造搜索链接作为后备
+        target_url = news.get('url') if news.get('url') else f"https://www.bing.com/search?q={quote_plus(news['title'])}"
         with st.container():
             col1, col2 = st.columns([1, 4])
             with col1:
                 st.markdown(f"**{news['date']}**")
-                st.caption(news['source'])
+                # 将来源也做为可点击项（当有 url 时指向原文）
+                if news.get('url'):
+                    st.caption(f"来源： {news['source']}")
+                else:
+                    st.caption(news['source'])
             with col2:
-                st.markdown(f"##### {news['title']}")
+                # 标题作为可点击链接，安全打开新标签
+                st.markdown(f"##### <a href='{target_url}' target='_blank' rel='noopener noreferrer'>{news['title']}</a>", unsafe_allow_html=True)
                 st.markdown(f"<span style='background:#e0f7fa;padding:2px 8px;border-radius:4px;font-size:12px'>{news['type']}</span>", unsafe_allow_html=True)
+                # 当条目本身没有明确 url 时，展示一个“搜索原文”的小链接
+                if not news.get('url'):
+                    st.markdown(f"<div style='margin-top:4px'><a href='{target_url}' target='_blank' rel='noopener noreferrer' style='font-size:12px'>🔎 在搜索中查找原文</a></div>", unsafe_allow_html=True)
             st.divider()
 
 # --- 2. 重点词汇 (核心功能) ---
@@ -192,17 +209,50 @@ elif menu == "✍️ 题库实战":
 # --- 5. 课件资源 ---
 elif menu == "📂 课件资源":
     st.title("📂 教学资源下载")
-    
-    # 动态生成文件列表数据
+
+    uploads_dir = "uploads"
     file_list = []
-    for idx, title, topic in LESSONS_DATA:
-        file_list.append([f"第{idx}课", f"第{idx}课_{topic}_教学课件.pptx", "PPT", "5MB"])
-        file_list.append([f"第{idx}课", f"第{idx}课_{topic}_课文录音.mp3", "音频", "3MB"])
-        file_list.append([f"第{idx}课", f"第{idx}课_{topic}_生词表.docx", "文档", "1MB"])
-    
-    df_files = pd.DataFrame(file_list, columns=["课程", "文件名", "类型", "大小"])
-    st.dataframe(df_files, hide_index=True, use_container_width=True)
-    st.button("⬇️ 批量下载 (演示)")
+
+    # 优先读取仓库中的 uploads/ 目录（用户将课件放在此处）
+    if os.path.isdir(uploads_dir):
+        files = sorted(os.listdir(uploads_dir))
+        for fname in files:
+            fpath = os.path.join(uploads_dir, fname)
+            if os.path.isfile(fpath):
+                size_kb = max(1, os.path.getsize(fpath) // 1024)
+                ext = os.path.splitext(fname)[1].lstrip('.').upper() or 'File'
+                # 课程列保留为文件名的前缀（若命名包含“第N课”则保留，否则空）
+                lesson_label = fname.split('_')[0] if '_' in fname else ''
+                file_list.append([lesson_label, fname, ext, f"{size_kb}KB", fpath])
+
+    # 如果 uploads 为空或不存在，回退到原先的演示性生成逻辑
+    if not file_list:
+        for idx, title, topic in LESSONS_DATA:
+            file_list.append([f"第{idx}课", f"第{idx}课_{topic}_教学课件.pptx", "PPT", "5MB", None])
+            file_list.append([f"第{idx}课", f"第{idx}课_{topic}_课文录音.mp3", "音频", "3MB", None])
+            file_list.append([f"第{idx}课", f"第{idx}课_{topic}_生词表.docx", "文档", "1MB", None])
+
+    df_files = pd.DataFrame(file_list, columns=["课程", "文件名", "类型", "大小", "_path"])
+    st.dataframe(df_files.drop(columns=['_path']), hide_index=True, use_container_width=True)
+
+    # 为每个文件提供单独的下载按钮（仅当文件已上传到 uploads/ 时）
+    for row in file_list:
+        lesson, fname, ftype, fsize, fpath = row
+        cols = st.columns([4, 1, 1])
+        with cols[0]:
+            st.write(f"**{fname}** — {lesson}")
+        with cols[1]:
+            st.write(f"{ftype} · {fsize}")
+        with cols[2]:
+            if fpath and os.path.isfile(fpath):
+                try:
+                    with open(fpath, 'rb') as _f:
+                        data = _f.read()
+                    st.download_button(label="⬇️ 下载", data=data, file_name=fname, mime='application/octet-stream')
+                except Exception as e:
+                    st.warning(f"无法读取文件：{fname}")
+            else:
+                st.button("⬇️ 演示下载", disabled=True)
 
 # --- 6. 课后任务 ---
 elif menu == "📝 课后任务":
