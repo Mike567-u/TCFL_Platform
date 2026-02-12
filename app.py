@@ -50,11 +50,11 @@ VOCAB_MAP = {
 
 # (3) 真实赛事资讯
 NEWS_DATA = [
-    {'type': '重磅', 'title': '教育部：2025年世界中文大会将在北京召开', 'date': '2025-11-15', 'source': '教育部官网', 'url': 'http://bridge.chinese.cn/wap/index/pc/news-detail.html?id=28626&type=notice'},
-    {'type': '赛事', 'title': '第24届“汉语桥”世界大学生中文比赛海外预赛启动', 'date': '2025-03-20', 'source': '汉语桥组委会', 'url': 'http://bridge.chinese.cn/wap/index/pc/news-detail.html?id=28166&type=notice'},
-    {'type': '考试', 'title': '2025年 HSK、HSKK 考试日程表发布', 'date': '2025-01-05', 'source': '汉考国际', 'url': 'http://bridge.chinese.cn/wap/index/pc/news-detail.html?id=24834&type=notice'},
-    {'type': '活动', 'title': '“国际中文日”：共绘中外文明交流互鉴新画卷', 'date': '2025-04-20', 'source': '语合中心', 'url': 'https://chineselanguagefestival.com/zh/%E7%AC%AC%E5%85%AD%E5%B1%8A%E5%9B%BD%E9%99%85%E6%B1%89%E8%AF%AD%E8%8A%82_cn/'},
-    {'type': '奖学金', 'title': '2025年国际中文教师奖学金申请办法', 'date': '2025-03-01', 'source': 'CLEC', 'url': 'https://cpipc.acge.org.cn//cw/detail/2c9080158e2ad864018e5fa55a450c49/2c90801896f759470197021604e30b1e'}
+    {'type': '重磅', 'title': '第二十五届 “汉语桥” 世界大学生中文比赛活动方案', 'date': '2026-2-10', 'source': '汉语桥官网', 'url': 'http://bridge.chinese.cn/wap/index/pc/news-detail.html?id=28626&type=notice'},
+    {'type': '赛事', 'title': '2026“汉语桥” 春节联欢晚会主题节目征集公告', 'date': '2026-02-12', 'source': '汉语桥官网', 'url': 'http://bridge.chinese.cn/wap/index/pc/news-detail.html?id=28166&type=notice'},
+    {'type': '考试', 'title': '第二十四届 “汉语桥" 世界大学生中文比赛活动方案', 'date': '2025-02-25', 'source': '汉语桥官网', 'url': 'http://bridge.chinese.cn/wap/index/pc/news-detail.html?id=24834&type=notice'},
+    {'type': '活动', 'title': '第六届国际汉语节', 'date': '2025-09-20', 'source': '国际汉语节官网', 'url': 'https://chineselanguagefestival.com/zh/%E7%AC%AC%E5%85%AD%E5%B1%8A%E5%9B%BD%E9%99%85%E6%B1%89%E8%AF%AD%E8%8A%82_cn/'},
+    {'type': '奖学金', 'title': '第二届中国研究生国际中文教育案例大赛参赛指南', 'date': '2025-05-24', 'source': '中国研究生国际中文教育案例大赛', 'url': 'https://cpipc.acge.org.cn//cw/detail/2c9080158e2ad864018e5fa55a450c49/2c90801896f759470197021604e30b1e'}
 ]
 
 # 为每条资讯补上可点击的链接：优先保留已有 'url'，否则构造搜索链接作为入口
