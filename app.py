@@ -98,10 +98,47 @@ with st.sidebar:
     
     menu = st.radio(
         "导航菜单",
-        ["🏠 赛事资讯", "📖 重点词汇", "📺 竞赛视频", "✍️ 题库实战", "📂 课件资源", "📝 课后任务", "📊 评价系统"]
+        ["🔖 课前预习", "🏠 赛事资讯", "📖 重点词汇", "📺 竞赛视频", "✍️ 题库实战", "📂 课件资源", "📝 课后任务", "📊 评价系统"]
     )
     st.divider()
     st.caption("Designed by Wang Yuan")
+
+# --- 0. 课前预习 ---
+if menu == "🔖 课前预习":
+    st.title("🔖 课前预习中心")
+    st.info("📚 这里展示所有课程内容，帮助您课前快速预习")
+    
+    # 课程列表
+    for idx, title, topic in LESSONS_DATA:
+        with st.expander(f"💡 第 {idx} 课：{title}（{topic}）", expanded=(idx==1)):
+            # 课程信息卡
+            col1, col2 = st.columns(2)
+            with col1:
+                st.markdown(f"**📌 课程主题：** {topic}")
+            with col2:
+                st.markdown(f"**📚 课程标题：** {title}")
+            
+            st.divider()
+            
+            # 词汇预览
+            if idx in VOCAB_MAP:
+                st.subheader("📖 词汇预览")
+                vocab_list = VOCAB_MAP[idx]
+                
+                # 显示该课的所有词汇
+                for word, pinyin, mean, tag in vocab_list:
+                    with st.container():
+                        c1, c2, c3 = st.columns([2, 2, 1])
+                        with c1:
+                            st.markdown(f"**{word}**")
+                        with c2:
+                            st.markdown(f"*{pinyin}*")
+                        with c3:
+                            st.markdown(f"_{mean}_")
+                        st.caption(f"📌 分类：{tag}")
+                        st.divider()
+            else:
+                st.info("本课节词汇资料待更新")
 
 # --- 1. 赛事资讯 ---
 if menu == "🏠 赛事资讯":
