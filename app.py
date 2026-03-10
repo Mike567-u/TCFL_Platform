@@ -277,7 +277,13 @@ NEWS_DATA = [
     {'type': '赛事', 'title': '2026“汉语桥” 春节联欢晚会主题节目征集公告', 'date': '2026-02-12', 'source': '汉语桥官网', 'url': 'http://bridge.chinese.cn/wap/index/pc/news-detail.html?id=28166&type=notice'},
     {'type': '考试', 'title': '第二十四届 “汉语桥" 世界大学生中文比赛活动方案', 'date': '2025-02-25', 'source': '汉语桥官网', 'url': 'http://bridge.chinese.cn/wap/index/pc/news-detail.html?id=24834&type=notice'},
     {'type': '活动', 'title': '第六届国际汉语节', 'date': '2025-09-20', 'source': '国际汉语节官网', 'url': 'https://chineselanguagefestival.com/zh/%E7%AC%AC%E5%85%AD%E5%B1%8A%E5%9B%BD%E9%99%85%E6%B1%89%E8%AF%AD%E8%8A%82_cn/'},
-    {'type': '奖学金', 'title': '第二届中国研究生国际中文教育案例大赛参赛指南', 'date': '2025-05-24', 'source': '中国研究生国际中文教育案例大赛', 'url': 'https://cpipc.acge.org.cn//cw/detail/2c9080158e2ad864018e5fa55a450c49/2c90801896f759470197021604e30b1e'}
+    {'type': '奖学金', 'title': '第二届中国研究生国际中文教育案例大赛参赛指南', 'date': '2025-05-24', 'source': '中国研究生国际中文教育案例大赛', 'url': 'https://cpipc.acge.org.cn//cw/detail/2c9080158e2ad864018e5fa55a450c49/2c90801896f759470197021604e30b1e'},
+    {'type': '短视频', 'title': '2025国际中文日 第五届HSK短视频大赛', 'date': '2025-04-20', 'source': 'HSK官网', 'url': 'https://hskicld.aki.com.cn/'},
+    {'type': '赛事', 'title': '汉语桥系列比赛', 'date': '2025-06-15', 'source': '汉语桥官网', 'url': 'http://bridge.chinese.cn/club/'},
+    {'type': '诵读', 'title': '第七届中华经典诵写讲大赛', 'date': '2025-09-01', 'source': '教育资源平台', 'url': 'https://jdsxj.eduyun.cn/'},
+    {'type': '赛事', 'title': '2025年全国大学生汉语大赛', 'date': '2025-05-10', 'source': '竞赛平台', 'url': 'https://hanyu.52jingsai.com/'},
+    {'type': '诵读', 'title': '第五届儒家经典跨语言诵读大会', 'date': '2025-11-15', 'source': '孔子学院', 'url': 'https://events.chinakongzi.org/m/ccacc2025'},
+    {'type': '诵读', 'title': '第四届儒家经典跨语言诵读大会', 'date': '2024-11-20', 'source': '孔子学院', 'url': 'https://events.chinakongzi.org/topic/ccacc2024.html'},
 ]
 
 # 为每条资讯补上可点击的链接：优先保留已有 'url'，否则构造搜索链接作为入口
