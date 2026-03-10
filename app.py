@@ -170,6 +170,14 @@ VIDEO_DATA = [
     {'cat': '文化体验', 'title': '20251129 宁夏卫视 第24届汉语桥世界大学生中文比赛', 'desc': '宁夏卫视对总决赛的电视报道剪辑。', 'url': 'https://www.bilibili.com/video/BV1KnSqBMEXW/?spm_id_from=333.337.search-card.all.click', 'color': '#f1c40f'}
 ]
 
+# (4.5) 学生竞赛成果展示视频
+STUDENT_VIDEO_DATA = [
+    {'title': '孔门问答', 'desc': '通过对话形式，深入探讨儒家文化与现代社会的关系。', 'url': 'https://www.bilibili.com/video/BV11fNFz6Eag/?vd_source=31ec2780eec4d90917efb3d81a5ab670', 'color': '#ff6b6b'},
+    {'title': '弦上汉语，桥间雅韵', 'desc': '将音乐与语言完美结合，展现汉语的艺术之美。', 'url': 'https://www.bilibili.com/video/BV1hL3FzaE49/?spm_id_from=333.337.search-card.all.click&vd_source=31ec2780eec4d90917efb3d81a5ab670', 'color': '#4ecdc4'},
+    {'title': '汉韵为友，弦动他乡', 'desc': '在异国他乡用汉语和音乐传递文化的温度。', 'url': 'https://www.bilibili.com/video/BV1AcgRzqEEQ/?spm_id_from=333.788.videopod.sections&vd_source=31ec2780eec4d90917efb3d81a5ab670', 'color': '#95e1d3'},
+    {'title': '在青岛，汉语有海的味道', 'desc': '将城市特色与汉语学习融为一体，展现地方文化魅力。', 'url': 'https://www.bilibili.com/video/BV12ZNFz3E38/?vd_source=31ec2780eec4d90917efb3d81a5ab670', 'color': '#44b393'}
+]
+
 # (5) 扩展的汉语竞赛题库 (基础题+提高题)
 def get_quiz_data():
     questions = []
@@ -444,13 +452,36 @@ elif menu == "📖 重点词汇":
 # --- 3. 竞赛视频 ---
 elif menu == "📺 竞赛视频":
     st.title("📺 视频资源库")
-    st.caption("精选 Bilibili 教学与竞赛资源")
     
-    cols = st.columns(1) # 手机端单列显示
-    for v in VIDEO_DATA:
-        with st.expander(f"▶️ {v['title']} ({v['cat']})"):
-            st.write(v['desc'])
-            st.link_button("点击跳转观看", v['url'])
+    # 创建两个分栏：精选资源 和 学生成果展示
+    tab1, tab2 = st.tabs(["✨ 精选资源", "🎓 学生成果展示"])
+    
+    with tab1:
+        st.caption("精选 Bilibili 教学与竞赛资源")
+        
+        cols = st.columns(1) # 手机端单列显示
+        for v in VIDEO_DATA:
+            with st.expander(f"▶️ {v['title']} ({v['cat']})"):
+                st.write(v['desc'])
+                st.link_button("点击跳转观看", v['url'])
+    
+    with tab2:
+        st.caption("🌟 我们优秀学生的竞赛成果展示")
+        st.divider()
+        
+        for vid in STUDENT_VIDEO_DATA:
+            with st.container():
+                col1, col2 = st.columns([1, 4])
+                
+                with col1:
+                    st.markdown(f"<div style='padding:10px; background:{vid['color']}; border-radius:8px; text-align:center; color:white;'><b>🏆</b></div>", unsafe_allow_html=True)
+                
+                with col2:
+                    st.markdown(f"### 🎬 {vid['title']}")
+                    st.markdown(f"*{vid['desc']}*")
+                    st.link_button("观看视频", vid['url'], use_container_width=True)
+                
+                st.divider()
 
 # --- 4. 题库实战 ---
 elif menu == "✍️ 题库实战":
