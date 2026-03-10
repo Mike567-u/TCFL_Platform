@@ -5,9 +5,8 @@ from datetime import datetime
 from urllib.parse import quote_plus
 import os
 import json
-import asyncio
 import io
-from edge_tts import Communicate
+from gtts import gTTS
 
 # ==========================================
 # 1. 页面基础配置
@@ -23,24 +22,15 @@ st.set_page_config(
 # 2. 数据中心 (100% 还原 notebook 数据)
 # ==========================================
 
-# 语音生成缓存函数
-@st.cache_resource
-def get_tts_engine():
-    """初始化TTS引擎"""
-    return "edge-tts"
-
-async def generate_speech(text: str) -> bytes:
+# 语音生成函数（使用 gTTS）
+def generate_speech(text: str) -> bytes:
     """生成中文语音"""
     try:
-        communicate = Communicate(text=text, lang="zh-CN")
-        audio_data = io.BytesIO()
-        
-        async for chunk in communicate.stream():
-            if chunk["type"] == "audio":
-                audio_data.write(chunk["data"])
-        
-        audio_data.seek(0)
-        return audio_data.getvalue()
+        tts = gTTS(text=text, lang='zh-CN', slow=False)
+        audio_buffer = io.BytesIO()
+        tts.write_to_fp(audio_buffer)
+        audio_buffer.seek(0)
+        return audio_buffer.getvalue()
     except Exception as e:
         st.error(f"发音生成失败: {str(e)[:50]}")
         return None
@@ -48,7 +38,7 @@ async def generate_speech(text: str) -> bytes:
 def play_audio(word: str, key_id: str):
     """播放词汇发音"""
     try:
-        audio_bytes = asyncio.run(generate_speech(word))
+        audio_bytes = generate_speech(word)
         if audio_bytes:
             st.audio(audio_bytes, format="audio/mp3")
     except Exception as e:
