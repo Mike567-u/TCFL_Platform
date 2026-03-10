@@ -7,6 +7,7 @@ import os
 import json
 import io
 from gtts import gTTS
+import plotly.graph_objects as go
 
 # ==========================================
 # 1. 页面基础配置
@@ -843,6 +844,67 @@ elif menu == "📝 课后任务":
 elif menu == "📊 评价系统":
     st.title("📊 学习者画像")
     
+    # 学习评价多维度数据
+    evaluation_data = {
+        "词汇掌握": 85,
+        "听力理解": 78,
+        "口语表达": 81,
+        "文化理解": 72,
+        "参与度": 92,
+        "任务完成": 88,
+    }
+    
+    # 创建雷达图
+    fig = go.Figure()
+    
+    categories = list(evaluation_data.keys())
+    values = list(evaluation_data.values())
+    values += values[:1]  # 闭合雷达图
+    
+    fig.add_trace(go.Scatterpolar(
+        r=values,
+        theta=categories + [categories[0]],
+        fill='toself',
+        name='学习评价',
+        line=dict(color='#1f77b4'),
+        fillcolor='rgba(31, 119, 180, 0.3)'
+    ))
+    
+    fig.update_layout(
+        polar=dict(
+            radialaxis=dict(
+                visible=True,
+                range=[0, 100],
+                tickfont=dict(size=10),
+            ),
+            angularaxis=dict(
+                tickfont=dict(size=11),
+            ),
+            bgcolor='rgba(240, 240, 240, 0.1)'
+        ),
+        title={
+            'text': "📈 学习能力雷达图",
+            'x': 0.5,
+            'xanchor': 'center',
+            'font': {'size': 18}
+        },
+        height=600,
+        hovermode='closest',
+        showlegend=False,
+    )
+    
+    st.plotly_chart(fig, use_container_width=True)
+    
+    # 维度评价详情
+    st.subheader("📊 各维度得分详情")
+    cols = st.columns(3)
+    for idx, (dimension, score) in enumerate(evaluation_data.items()):
+        with cols[idx % 3]:
+            progress_color = "🟢" if score >= 80 else "🟡" if score >= 70 else "🔴"
+            st.metric(f"{progress_color} {dimension}", f"{score}分")
+    
+    st.divider()
+    
     col1, col2 = st.columns(2)
     with col1:
         st.metric("词汇掌握度", "85%", "+5%")
@@ -863,5 +925,17 @@ elif menu == "📊 评价系统":
             st.write("该生在\"移动支付\"和\"网购\"话题上表现出色，掌握词汇运用能力强。建议加强\"传统文化\"部分的学习，深化对文化内涵的理解。继续努力！")
     
     st.markdown("---")
+    
+    # 学习建议
+    st.subheader("💡 个性化学习建议")
+    suggestions = [
+        ("词汇掌握", "已达优秀水平，建议深化习语和文化表达的学习"),
+        ("文化理解", "偏弱环节，建议增加文化体验活动和相关阅读"),
+        ("口语表达", "稳定发展，继续通过竞赛视频学习和模仿"),
+    ]
+    for dimension, suggestion in suggestions:
+        with st.container():
+            st.markdown(f"**{dimension}** - {suggestion}")
+    
     st.caption("📅 评价日期：2026-02-12")
 
