@@ -71,18 +71,108 @@ VIDEO_DATA = [
     {'cat': '文化体验', 'title': '20251129 宁夏卫视 第24届汉语桥世界大学生中文比赛', 'desc': '宁夏卫视对总决赛的电视报道剪辑。', 'url': 'https://www.bilibili.com/video/BV1KnSqBMEXW/?spm_id_from=333.337.search-card.all.click', 'color': '#f1c40f'}
 ]
 
-# (5) 动态生成题库 (逻辑移植)
+# (5) 扩展的汉语竞赛题库 (基础题+提高题)
 def get_quiz_data():
     questions = []
-    for idx, title, topic in LESSONS_DATA:
-        if idx == 4:
-            questions.append({"lid": idx, "type": "文化", "q": "为什么中国人忌讳用筷子敲碗？", "opts": ["不卫生", "像乞丐要饭", "容易打破碗"], "ans": "像乞丐要饭"})
-        elif idx == 8:
-            questions.append({"lid": idx, "type": "听力", "q": "记者采访中，受访者认为移动支付最大的风险是？", "opts": ["没电", "隐私泄露", "操作复杂"], "ans": "隐私泄露"})
-        elif idx == 3:
-            questions.append({"lid": idx, "type": "常识", "q": "泼水节是哪个民族的传统节日？", "opts": ["汉族", "傣族", "回族"], "ans": "傣族"})
-        else:
-            questions.append({"lid": idx, "type": "阅读", "q": f"关于“{topic}”，下列说法正确的是？", "opts": ["完全支持", "辩证看待", "坚决反对"], "ans": "辩证看待"})
+    
+    # 第1课 - 汉语可以这样学
+    questions.extend([
+        {"lid": 1, "difficulty": "基础", "type": "词汇", "q": ""体验"的意思最接近以下哪个选项？", "opts": ["理论学习", "亲身经历", "书本知识"], "ans": "亲身经历"},
+        {"lid": 1, "difficulty": "基础", "type": "文化", "q": "学习汉语的最有效方法是什么？", "opts": ["只看书", "多实践和体验", "背字典"], "ans": "多实践和体验"},
+        {"lid": 1, "difficulty": "提高", "type": "语言运用", "q": "用"相似"造句，以下哪个句子最恰当？", "opts": ["这两个单词的发音相似。", "这个颜色很相似。", "我相似他很聪明。"], "ans": "这两个单词的发音相似。"},
+    ])
+    
+    # 第2课 - 颜色的寓意
+    questions.extend([
+        {"lid": 2, "difficulty": "基础", "type": "文化", "q": "在中国文化中，红色通常象征什么？", "opts": ["悲伤", "幸运和喜庆", "严肃"], "ans": "幸运和喜庆"},
+        {"lid": 2, "difficulty": "基础", "type": "词汇", "q": ""象征"最接近以下哪个意思？", "opts": ["代表", "看起来", "变成"], "ans": "代表"},
+        {"lid": 2, "difficulty": "提高", "type": "文化理解", "q": "为什么在某些文化中会"忌讳"（jìhuì）某种颜色？", "opts": ["因为这种颜色不好看", "因为文化传统中赋予了特殊含义", "因为这种颜色太显眼"], "ans": "因为文化传统中赋予了特殊含义"},
+    ])
+    
+    # 第3课 - 幸福的水花身上泼
+    questions.extend([
+        {"lid": 3, "difficulty": "基础", "type": "常识", "q": "以下哪个是泼水节的传统活动？", "opts": ["放鞭炮", "泼水", "贴春联"], "ans": "泼水"},
+        {"lid": 3, "difficulty": "基础", "type": "词汇", "q": ""传说"是什么意思？", "opts": ["真实的历史", "民间流传的故事", "官方记录"], "ans": "民间流传的故事"},
+        {"lid": 3, "difficulty": "提高", "type": "成语理解", "q": "理解成语"兴高采烈"，以下哪个描述最准确？", "opts": ["心情低落", "非常高兴和兴奋", "工作繁忙"], "ans": "非常高兴和兴奋"},
+    ])
+    
+    # 第4课 - 原来筷子有这么多讲究
+    questions.extend([
+        {"lid": 4, "difficulty": "基础", "type": "文化", "q": "为什么中国人忌讳用筷子敲碗？", "opts": ["不卫生", "像乞丐要饭", "容易打破碗"], "ans": "像乞丐要饭"},
+        {"lid": 4, "difficulty": "基础", "type": "词汇", "q": ""讲究"作为形容词时意思是？", "opts": ["讨厌", "讲解", "精致、挑剔"], "ans": "精致、挑剔"},
+        {"lid": 4, "difficulty": "提高", "type": "语言运用", "q": "以下哪个不是使用筷子的不礼貌行为？", "opts": ["敲碗", "插进米饭", "轻轻夹菜"], "ans": "轻轻夹菜"},
+    ])
+    
+    # 第5课 - 礼轻情意重
+    questions.extend([
+        {"lid": 5, "difficulty": "基础", "type": "文化", "q": "中国有一句俗语说的是关于赠送礼物的原则是什么？", "opts": ["礼越贵越好", "礼轻情意重", "只送最贵的"], "ans": "礼轻情意重"},
+        {"lid": 5, "difficulty": "基础", "type": "词汇", "q": ""做客"是什么意思？", "opts": ["做生意", "去别人家做客", "工作"], "ans": "去别人家做客"},
+        {"lid": 5, "difficulty": "提高", "type": "文化理解", "q": ""面子"在中国文化中最重要的含义是什么？", "opts": ["脸部", "尊严和名誉", "表面"], "ans": "尊严和名誉"},
+    ])
+    
+    # 第6课 - 在家谁做饭
+    questions.extend([
+        {"lid": 6, "difficulty": "基础", "type": "词汇", "q": ""承担"的意思是什么？", "opts": ["放弃", "担当、承担责任", "拒绝"], "ans": "担当、承担责任"},
+        {"lid": 6, "difficulty": "基础", "type": "文化", "q": "现代中国家庭分工的趋势如何？", "opts": ["女性做所有家务", "家务分担变得更平等", "男性做所有家务"], "ans": "家务分担变得更平等"},
+        {"lid": 6, "difficulty": "提高", "type": "语言运用", "q": ""体贴"在这句中的用法是什么：'她很体贴地照顾了生病的家人'？", "opts": ["名词", "形容词", "动词"], "ans": "形容词"},
+    ])
+    
+    # 第7课 - 网购与生活
+    questions.extend([
+        {"lid": 7, "difficulty": "基础", "type": "词汇", "q": ""下单"是什么意思？", "opts": ["支付订单", "下楼", "提交购买请求"], "ans": "提交购买请求"},
+        {"lid": 7, "difficulty": "基础", "type": "文化", "q": "网购相比实体店的主要优势是什么？", "opts": ["更贵", "方便快捷", "品质更差"], "ans": "方便快捷"},
+        {"lid": 7, "difficulty": "提高", "type": "语言运用", "q": "理解句子：'顾客对商品的评价很重要'，这里"评价"是什么词性？", "opts": ["动词", "名词", "形容词"], "ans": "名词"},
+    ])
+    
+    # 第8课 - 移动支付真方便
+    questions.extend([
+        {"lid": 8, "difficulty": "基础", "type": "听力理解", "q": "记者采访中，受访者认为移动支付最大的风险是什么？", "opts": ["没电", "隐私泄露", "操作复杂"], "ans": "隐私泄露"},
+        {"lid": 8, "difficulty": "基础", "type": "词汇", "q": ""转账"是什么意思？", "opts": ["换账户", "将钱财从一个账户转到另一个", "删除账户"], "ans": "将钱财从一个账户转到另一个"},
+        {"lid": 8, "difficulty": "提高", "type": "文化理解", "q": "关于移动支付的发展，以下说法不正确的是？", "opts": ["它改变了人们的消费方式", "它完全替代了现金", "它提高了交易效率"], "ans": "它完全替代了现金"},
+    ])
+    
+    # 第9课 - 妈妈的退休生活
+    questions.extend([
+        {"lid": 9, "difficulty": "基础", "type": "词汇", "q": ""丰富"的意思是什么？", "opts": ["简单", "多样化、内容许多", "困难"], "ans": "多样化、内容许多"},
+        {"lid": 9, "difficulty": "基础", "type": "文化", "q": "广场舞在中国社会的作用主要是什么？", "opts": ["赚钱", "娱乐和社交活动", "竞争"], "ans": "娱乐和社交活动"},
+        {"lid": 9, "difficulty": "提高", "type": "社会理解", "q": "老龄化社会的到来对年轻人意味着什么？", "opts": ["没有影响", "需要承担更多社会责任", "生活变得更轻松"], "ans": "需要承担更多社会责任"},
+    ])
+    
+    # 第10课 - 实习不是打杂儿
+    questions.extend([
+        {"lid": 10, "difficulty": "基础", "type": "词汇", "q": ""打杂"是什么意思？", "opts": ["打破东西", "做琐碎的低价值工作", "打游戏"], "ans": "做琐碎的低价值工作"},
+        {"lid": 10, "difficulty": "基础", "type": "文化", "q": "实习的真正意义是什么？", "opts": ["免费工作", "获得实践经验和专业发展", "打发时间"], "ans": "获得实践经验和专业发展"},
+        {"lid": 10, "difficulty": "提高", "type": "语言运用", "q": "以下哪个句子最准确地表达了实习的价值？", "opts": ["实习就是做家务", "实习是参与真实项目、学习专业知识的机会", "实习只是为了赚钱"], "ans": "实习是参与真实项目、学习专业知识的机会"},
+    ])
+    
+    # 第11课 - 无声的蛋糕店
+    questions.extend([
+        {"lid": 11, "difficulty": "基础", "type": "词汇", "q": ""尊重"是什么意思？", "opts": ["害怕", "尊敬、尊重他人", "嘲笑"], "ans": "尊敬、尊重他人"},
+        {"lid": 11, "difficulty": "基础", "type": "文化", "q": "无声蛋糕店想要表达什么理念？", "opts": ["蛋糕很贵", "聋哑人也能自我拯救、为社会做贡献", "蛋糕不好吃"], "ans": "聋哑人也能自我拯救、为社会做贡献"},
+        {"lid": 11, "difficulty": "提高", "type": "社会理解", "q": "社会应该如何对待残疾人群体？", "opts": ["完全排斥他们", "给予尊重和平等的机会", "过度怜悯"], "ans": "给予尊重和平等的机会"},
+    ])
+    
+    # 第12课 - 越来越淡的年味儿
+    questions.extend([
+        {"lid": 12, "difficulty": "基础", "type": "词汇", "q": ""习俗"是什么意思？", "opts": ["坏习惯", "社会传统活动", "新发明"], "ans": "社会传统活动"},
+        {"lid": 12, "difficulty": "基础", "type": "文化", "q": "以下哪个是中国春节的传统活动？", "opts": ["冲浪", "放鞭炮、贴春联", "登山"], "ans": "放鞭炮、贴春联"},
+        {"lid": 12, "difficulty": "提高", "type": "文化分析", "q": "题目"越来越淡的年味儿"反映了什么社会现象？", "opts": ["春节变得更隆重了", "传统节日的庆祝方式在改变", "人们不再庆祝春节"], "ans": "传统节日的庆祝方式在改变"},
+    ])
+    
+    # 第13课 - 孩子的零花钱
+    questions.extend([
+        {"lid": 13, "difficulty": "基础", "type": "词汇", "q": ""理财"是什么意思？", "opts": ["花钱", "管理和计划金钱", "借钱"], "ans": "管理和计划金钱"},
+        {"lid": 13, "difficulty": "基础", "type": "教育", "q": "给孩子零花钱的主要目的是什么？", "opts": ["让孩子买东西", "培养理财和自主的能力", "浪费钱"], "ans": "培养理财和自主的能力"},
+        {"lid": 13, "difficulty": "提高", "type": "语言运用", "q": "理解"惯"的意思：'父母不应该惯孩子'中，"惯"的意思最接近？", "opts": ["习惯", "溺爱、纵容", "陪伴"], "ans": "溺爱、纵容"},
+    ])
+    
+    # 第14课 - 我想搬出去住
+    questions.extend([
+        {"lid": 14, "difficulty": "基础", "type": "词汇", "q": ""合租"是什么意思？", "opts": ["单独租房", "几个人一起租一套房子", "免费住房"], "ans": "几个人一起租一套房子"},
+        {"lid": 14, "difficulty": "基础", "type": "生活", "q": "租房时通常需要支付哪些费用？", "opts": ["只有房租", "房租和押金", "不需要付钱"], "ans": "房租和押金"},
+        {"lid": 14, "difficulty": "提高", "type": "成人独立", "q": "想要搬出去住通常反映了什么生活阶段的变化？", "opts": ["逃离家庭", "向成人独立迈进", "被赶出来"], "ans": "向成人独立迈进"},
+    ])
+    
     return questions
 
 QUIZ_DATA = get_quiz_data()
@@ -214,34 +304,91 @@ elif menu == "📺 竞赛视频":
 
 # --- 4. 题库实战 ---
 elif menu == "✍️ 题库实战":
-    st.title("✍️ 每日一练")
-    st.progress(0, text="当前进度")
+    st.title("✍️ 竞赛题库实战")
     
-    with st.form("quiz_main"):
-        score = 0
-        total = len(QUIZ_DATA)
-        
-        for i, q in enumerate(QUIZ_DATA):
-            st.markdown(f"**{i+1}. [{q['type']}] {q['q']}**")
-            # 唯一的 key 避免冲突
-            user_ans = st.radio("请选择:", q['opts'], key=f"q_{i}", index=None)
-            st.divider()
+    # 难度筛选
+    difficulty_filter = st.radio("选择难度级别", ["全部", "基础", "提高"], horizontal=True)
+    
+    # 按难度筛选题目
+    filtered_quiz = QUIZ_DATA
+    if difficulty_filter != "全部":
+        filtered_quiz = [q for q in QUIZ_DATA if q.get("difficulty") == difficulty_filter]
+    
+    # 显示统计信息
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.metric("总题数", len(filtered_quiz))
+    with col2:
+        st.metric("基础题", len([q for q in QUIZ_DATA if q.get("difficulty") == "基础"]))
+    with col3:
+        st.metric("提高题", len([q for q in QUIZ_DATA if q.get("difficulty") == "提高"]))
+    
+    st.divider()
+    
+    if len(filtered_quiz) == 0:
+        st.warning("没有符合条件的题目")
+    else:
+        with st.form("quiz_main"):
+            score = 0
+            total = len(filtered_quiz)
             
-        submitted = st.form_submit_button("提交试卷")
-        
-        if submitted:
-            correct = 0
-            for i, q in enumerate(QUIZ_DATA):
-                u_ans = st.session_state.get(f"q_{i}")
-                if u_ans == q['ans']:
-                    correct += 1
+            for i, q in enumerate(filtered_quiz):
+                # 题目头部：显示课程、难度、题型
+                difficulty_badge = "⭐" if q.get("difficulty") == "基础" else "⭐⭐"
+                st.markdown(f"**第 {i+1} 题** | 第{q['lid']}课 | {difficulty_badge} | [{q['type']}]")
+                st.markdown(f"### {q['q']}")
+                
+                # 选项单选
+                user_ans = st.radio("请选择:", q['opts'], key=f"q_{q['lid']}_{i}", index=None, label_visibility="collapsed")
+                st.divider()
+            
+            submitted = st.form_submit_button("📊 提交答卷", use_container_width=True)
+            
+            if submitted:
+                correct = 0
+                errors = []
+                
+                for i, q in enumerate(filtered_quiz):
+                    u_ans = st.session_state.get(f"q_{q['lid']}_{i}")
+                    if u_ans == q['ans']:
+                        correct += 1
+                    else:
+                        errors.append({
+                            "num": i + 1,
+                            "question": q['q'],
+                            "your_ans": u_ans if u_ans else "未作答",
+                            "correct_ans": q['ans']
+                        })
+                
+                final_score = int(correct / total * 100) if total > 0 else 0
+                
+                # 成绩展示
+                st.divider()
+                col1, col2, col3 = st.columns(3)
+                with col1:
+                    st.metric("你的得分", f"{final_score} 分", f"{correct}/{total}")
+                with col2:
+                    accuracy = int(correct / total * 100) if total > 0 else 0
+                    st.metric("准确率", f"{accuracy}%")
+                with col3:
+                    if final_score >= 80:
+                        st.metric("评价", "优秀 🎉")
+                    elif final_score >= 60:
+                        st.metric("评价", "及格 ✓")
+                    else:
+                        st.metric("评价", "需努力")
+                
+                # 错题详解
+                if errors:
+                    st.warning(f"您有 {len(errors)} 题答错了，请查看以下详解：")
+                    st.divider()
+                    for err in errors:
+                        with st.expander(f"❌ 第 {err['num']} 题：{err['question'][:40]}..."):
+                            st.markdown(f"**❌ 你的答案：** {err['your_ans']}")
+                            st.markdown(f"**✅ 正确答案：** {err['correct_ans']}")
                 else:
-                    st.error(f"第 {i+1} 题错误。正确答案：{q['ans']}")
-            
-            final_score = int(correct / total * 100)
-            st.metric("你的得分", f"{final_score} 分")
-            if final_score == 100:
-                st.balloons()
+                    st.success("🎉 完美！所有题目都答对了！")
+                    st.balloons()
 
 # --- 5. 课件资源 ---
 elif menu == "📂 课件资源":
