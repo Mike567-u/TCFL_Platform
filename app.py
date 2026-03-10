@@ -129,22 +129,138 @@ BACKGROUND_KNOWLEDGE = {
     }
 }
 
-# (2) 精准词汇表 (Map)
+# (2) 精准词汇表 - 扩充版（含难度和竞赛标签）
 VOCAB_MAP = {
-    1: [('声调','shēngdiào','Tone','语音'), ('模仿','mófǎng','Imitate','方法'), ('偏旁','piānpáng','Radical','汉字'), ('体验','tǐyàn','Experience','动词'), ('相似','xiāngsì','Similar','形容词')],
-    2: [('寓意','yùyì','Implied meaning','名词'), ('忌讳','jìhuì','Taboo','名词'), ('崇拜','chóngbài','Worship','动词'), ('显眼','xiǎnyǎn','Conspicuous','形容词'), ('象征','xiàngzhēng','Symbolize','动词')],
-    3: [('传说','chuánshuō','Legend','名词'), ('吉祥','jíxiáng','Lucky','形容词'), ('泼水','pōshuǐ','Splash water','动词'), ('信物','xìnwù','Token','名词'), ('西双版纳','Xīshuāngbǎnnà','Place name','专名'), ('兴高采烈','xìnggāocǎiliè','In high spirits','成语')],
-    4: [('分餐制','fēncānzhì','Separate dining','文化'), ('入乡随俗','rùxiāngsuísú','Do as Romans do','成语'), ('讲究','jiǎngjiu','Particular/Exquisite','形容词'), ('夹','jiā','Pick up (with chopsticks)','动词'), ('餐具','cānjù','Tableware','名词'), ('乞丐','qǐgài','Beggar','名词'), ('鱼刺','yúcì','Fish bone','名词'), ('挑','tiāo','Pick/Poke','动词'), ('牙签','yáqiān','Toothpick','名词')],
-    5: [('礼尚往来','lǐshàngwǎnglái','Courtesy demands reciprocity','成语'), ('做客','zuòkè','Be a guest','动词'), ('面子','miànzi','Face/Prestige','文化')],
-    6: [('承担','chéngdān','Undertake','动词'), ('体贴','tǐtiē','Considerate','形容词'), ('家务','jiāwù','Housework','名词'), ('细','xì','Careful/Fine','形容词')],
-    7: [('物流','wùliú','Logistics','名词'), ('评价','píngjià','Review','名词'), ('实体店','shítǐdiàn','Physical store','名词'), ('下单','xiàdān','Place an order','动词'), ('嫌','xián','Dislike','动词'), ('享受','xiǎngshòu','Enjoy','动词'), ('喜好','xǐhào','Preference','名词')],
-    8: [('二维码','èrwéimǎ','QR Code','科技'), ('转账','zhuǎnzhàng','Transfer','金融'), ('泄露','xièlòu','Leak','安全'), ('纸币','zhǐbì','Banknote','名词'), ('细菌','xìjūn','Bacteria','名词'), ('摊','tān','Stall','名词'), ('轻易','qīngyì','Easily','副词'), ('兑换','duìhuàn','Exchange','动词'), ('汇率','huìlǜ','Exchange rate','名词'), ('损失','sǔnshī','Loss','名词'), ('显示','xiǎnshì','Display','动词'), ('摆脱','bǎituō','Break away from','动词'), ('依赖','yīlài','Rely on','动词'), ('隐私','yǐnsī','Privacy','名词'), ('保障','bǎozhàng','Guarantee','动词')],
-    9: [('寂寞','jìmò','Lonely','心理'), ('丰富','fēngfù','Rich','形容词'), ('广场舞','guǎngchǎngwǔ','Square dance','文化'), ('延续','yánxù','Continue','动词')],
-    10: [('简历','jiǎnlì','Resume','求职'), ('打杂','dǎzá','Do odds and ends','口语'), ('录用','lùyòng','Hire','动词'), ('项目','xiàngmù','Project','名词'), ('学历','xuélì','Education background','名词')],
-    11: [('聋哑人','lóngyǎrén','Deaf-mute','名词'), ('尊重','zūnzhòng','Respect','动词'), ('自强','zìqiáng','Self-improvement','精神')],
-    12: [('气氛','qìfēn','Atmosphere','名词'), ('团圆','tuányuán','Reunion','动词'), ('春运','chūnyùn','Spring Festival travel','文化'), ('习俗','xísú','Custom','名词'), ('压岁钱','yāsuìqián','Money given to children','文化'), ('放鞭炮','fàngbiānpào','Set off firecrackers','活动')],
-    13: [('零花钱','línghuaqián','Pocket money','名词'), ('惯','guàn','Spoil','动词'), ('理财','lǐcái','Manage money','动词'), ('家长','jiāzhǎng','Parent','名词'), ('物质','wùzhì','Material','名词'), ('信任','xìnrèn','Trust','动词'), ('学问','xuéwen','Knowledge/Learning','名词')],
-    14: [('中介','zhōngjiè','Agency','名词'), ('押金','yājīn','Deposit','名词'), ('合租','hézū','Share rent','动词')]
+    1: [
+        {'word': '声调', 'pinyin': 'shēngdiào', 'meaning': 'Tone', 'category': '语音', 'difficulty': '简单', 'is_exam': True},
+        {'word': '模仿', 'pinyin': 'mófǎng', 'meaning': 'Imitate', 'category': '方法', 'difficulty': '简单', 'is_exam': True},
+        {'word': '偏旁', 'pinyin': 'piānpáng', 'meaning': 'Radical', 'category': '汉字', 'difficulty': '困难', 'is_exam': True},
+        {'word': '体验', 'pinyin': 'tǐyàn', 'meaning': 'Experience', 'category': '动词', 'difficulty': '简单', 'is_exam': True},
+        {'word': '相似', 'pinyin': 'xiāngsì', 'meaning': 'Similar', 'category': '形容词', 'difficulty': '简单', 'is_exam': True},
+        {'word': '笔画', 'pinyin': 'bǐhuà', 'meaning': 'Stroke', 'category': '汉字', 'difficulty': '简单', 'is_exam': True},
+        {'word': '发音', 'pinyin': 'fāyīn', 'meaning': 'Pronunciation', 'category': '语音', 'difficulty': '困难', 'is_exam': False},
+        {'word': '语言', 'pinyin': 'yǔyán', 'meaning': 'Language', 'category': '名词', 'difficulty': '简单', 'is_exam': False},
+    ],
+    2: [
+        {'word': '寓意', 'pinyin': 'yùyì', 'meaning': 'Implied meaning', 'category': '名词', 'difficulty': '困难', 'is_exam': True},
+        {'word': '忌讳', 'pinyin': 'jìhuì', 'meaning': 'Taboo', 'category': '名词', 'difficulty': '困难', 'is_exam': True},
+        {'word': '崇拜', 'pinyin': 'chóngbài', 'meaning': 'Worship', 'category': '动词', 'difficulty': '简单', 'is_exam': True},
+        {'word': '显眼', 'pinyin': 'xiǎnyǎn', 'meaning': 'Conspicuous', 'category': '形容词', 'difficulty': '简单', 'is_exam': False},
+        {'word': '象征', 'pinyin': 'xiàngzhēng', 'meaning': 'Symbolize', 'category': '动词', 'difficulty': '简单', 'is_exam': True},
+        {'word': '红色', 'pinyin': 'hóngse', 'meaning': 'Red', 'category': '颜色', 'difficulty': '简单', 'is_exam': False},
+        {'word': '黄色', 'pinyin': 'huángsè', 'meaning': 'Yellow', 'category': '颜色', 'difficulty': '简单', 'is_exam': False},
+        {'word': '文化', 'pinyin': 'wénhuà', 'meaning': 'Culture', 'category': '名词', 'difficulty': '简单', 'is_exam': True},
+    ],
+    3: [
+        {'word': '传说', 'pinyin': 'chuánshuō', 'meaning': 'Legend', 'category': '名词', 'difficulty': '简单', 'is_exam': True},
+        {'word': '吉祥', 'pinyin': 'jíxiáng', 'meaning': 'Lucky', 'category': '形容词', 'difficulty': '简单', 'is_exam': True},
+        {'word': '泼水', 'pinyin': 'pōshuǐ', 'meaning': 'Splash water', 'category': '动词', 'difficulty': '简单', 'is_exam': True},
+        {'word': '信物', 'pinyin': 'xìnwù', 'meaning': 'Token', 'category': '名词', 'difficulty': '困难', 'is_exam': False},
+        {'word': '西双版纳', 'pinyin': 'Xīshuāngbǎnnà', 'meaning': 'Place name', 'category': '专名', 'difficulty': '困难', 'is_exam': False},
+        {'word': '兴高采烈', 'pinyin': 'xìnggāocǎiliè', 'meaning': 'In high spirits', 'category': '成语', 'difficulty': '困难', 'is_exam': True},
+        {'word': '节日', 'pinyin': 'jiérì', 'meaning': 'Holiday', 'category': '名词', 'difficulty': '简单', 'is_exam': False},
+        {'word': '传统', 'pinyin': 'chuántǒng', 'meaning': 'Tradition', 'category': '名词', 'difficulty': '简单', 'is_exam': True},
+    ],
+    4: [
+        {'word': '分餐制', 'pinyin': 'fēncānzhì', 'meaning': 'Separate dining', 'category': '文化', 'difficulty': '困难', 'is_exam': True},
+        {'word': '入乡随俗', 'pinyin': 'rùxiāngsuísú', 'meaning': 'Do as Romans do', 'category': '成语', 'difficulty': '困难', 'is_exam': True},
+        {'word': '讲究', 'pinyin': 'jiǎngjiu', 'meaning': 'Particular', 'category': '形容词', 'difficulty': '简单', 'is_exam': True},
+        {'word': '夹', 'pinyin': 'jiā', 'meaning': 'Pick up', 'category': '动词', 'difficulty': '简单', 'is_exam': True},
+        {'word': '餐具', 'pinyin': 'cānjù', 'meaning': 'Tableware', 'category': '名词', 'difficulty': '简单', 'is_exam': False},
+        {'word': '乞丐', 'pinyin': 'qǐgài', 'meaning': 'Beggar', 'category': '名词', 'difficulty': '困难', 'is_exam': True},
+        {'word': '鱼刺', 'pinyin': 'yúcì', 'meaning': 'Fish bone', 'category': '名词', 'difficulty': '简单', 'is_exam': False},
+        {'word': '挑', 'pinyin': 'tiāo', 'meaning': 'Pick', 'category': '动词', 'difficulty': '简单', 'is_exam': False},
+        {'word': '牙签', 'pinyin': 'yáqiān', 'meaning': 'Toothpick', 'category': '名词', 'difficulty': '简单', 'is_exam': False},
+        {'word': '礼仪', 'pinyin': 'lǐyí', 'meaning': 'Etiquette', 'category': '名词', 'difficulty': '困难', 'is_exam': True},
+    ],
+    5: [
+        {'word': '礼尚往来', 'pinyin': 'lǐshàngwǎnglái', 'meaning': 'Courtesy demands reciprocity', 'category': '成语', 'difficulty': '困难', 'is_exam': True},
+        {'word': '做客', 'pinyin': 'zuòkè', 'meaning': 'Be a guest', 'category': '动词', 'difficulty': '简单', 'is_exam': False},
+        {'word': '面子', 'pinyin': 'miànzi', 'meaning': 'Face/Prestige', 'category': '文化', 'difficulty': '困难', 'is_exam': True},
+        {'word': '送礼', 'pinyin': 'sònglǐ', 'meaning': 'Give gifts', 'category': '动词', 'difficulty': '简单', 'is_exam': True},
+        {'word': '情意', 'pinyin': 'qíng yì', 'meaning': 'Affection', 'category': '名词', 'difficulty': '简单', 'is_exam': False},
+        {'word': '尊重', 'pinyin': 'zūnzhòng', 'meaning': 'Respect', 'category': '动词', 'difficulty': '简单', 'is_exam': True},
+    ],
+    6: [
+        {'word': '承担', 'pinyin': 'chéngdān', 'meaning': 'Undertake', 'category': '动词', 'difficulty': '简单', 'is_exam': True},
+        {'word': '体贴', 'pinyin': 'tǐtiē', 'meaning': 'Considerate', 'category': '形容词', 'difficulty': '简单', 'is_exam': False},
+        {'word': '家务', 'pinyin': 'jiāwù', 'meaning': 'Housework', 'category': '名词', 'difficulty': '简单', 'is_exam': True},
+        {'word': '细', 'pinyin': 'xì', 'meaning': 'Careful', 'category': '形容词', 'difficulty': '简单', 'is_exam': False},
+        {'word': '平等', 'pinyin': 'píngděng', 'meaning': 'Equal', 'category': '形容词', 'difficulty': '简单', 'is_exam': True},
+        {'word': '分工', 'pinyin': 'fēngōng', 'meaning': 'Division of labor', 'category': '名词', 'difficulty': '简单', 'is_exam': False},
+        {'word': '性别', 'pinyin': 'xìngbié', 'meaning': 'Gender', 'category': '名词', 'difficulty': '简单', 'is_exam': False},
+    ],
+    7: [
+        {'word': '物流', 'pinyin': 'wùliú', 'meaning': 'Logistics', 'category': '名词', 'difficulty': '困难', 'is_exam': False},
+        {'word': '评价', 'pinyin': 'píngjià', 'meaning': 'Review', 'category': '名词', 'difficulty': '简单', 'is_exam': True},
+        {'word': '实体店', 'pinyin': 'shítǐdiàn', 'meaning': 'Physical store', 'category': '名词', 'difficulty': '简单', 'is_exam': False},
+        {'word': '下单', 'pinyin': 'xiàdān', 'meaning': 'Place order', 'category': '动词', 'difficulty': '简单', 'is_exam': True},
+        {'word': '嫌', 'pinyin': 'xián', 'meaning': 'Dislike', 'category': '动词', 'difficulty': '简单', 'is_exam': False},
+        {'word': '享受', 'pinyin': 'xiǎngshòu', 'meaning': 'Enjoy', 'category': '动词', 'difficulty': '简单', 'is_exam': True},
+        {'word': '喜好', 'pinyin': 'xǐhào', 'meaning': 'Preference', 'category': '名词', 'difficulty': '简单', 'is_exam': False},
+        {'word': '消费', 'pinyin': 'xiāofèi', 'meaning': 'Consume', 'category': '动词', 'difficulty': '简单', 'is_exam': True},
+    ],
+    8: [
+        {'word': '二维码', 'pinyin': 'èrwéimǎ', 'meaning': 'QR Code', 'category': '科技', 'difficulty': '简单', 'is_exam': False},
+        {'word': '转账', 'pinyin': 'zhuǎnzhàng', 'meaning': 'Transfer', 'category': '金融', 'difficulty': '简单', 'is_exam': True},
+        {'word': '泄露', 'pinyin': 'xièlòu', 'meaning': 'Leak', 'category': '安全', 'difficulty': '困难', 'is_exam': True},
+        {'word': '纸币', 'pinyin': 'zhǐbì', 'meaning': 'Banknote', 'category': '名词', 'difficulty': '简单', 'is_exam': False},
+        {'word': '细菌', 'pinyin': 'xìjūn', 'meaning': 'Bacteria', 'category': '名词', 'difficulty': '困难', 'is_exam': False},
+        {'word': '摊', 'pinyin': 'tān', 'meaning': 'Stall', 'category': '名词', 'difficulty': '简单', 'is_exam': False},
+        {'word': '轻易', 'pinyin': 'qīngyì', 'meaning': 'Easily', 'category': '副词', 'difficulty': '简单', 'is_exam': False},
+        {'word': '兑换', 'pinyin': 'duìhuàn', 'meaning': 'Exchange', 'category': '动词', 'difficulty': '简单', 'is_exam': False},
+        {'word': '汇率', 'pinyin': 'huìlǜ', 'meaning': 'Exchange rate', 'category': '名词', 'difficulty': '困难', 'is_exam': False},
+        {'word': '支付', 'pinyin': 'zhīfù', 'meaning': 'Payment', 'category': '动词', 'difficulty': '简单', 'is_exam': True},
+    ],
+    9: [
+        {'word': '寂寞', 'pinyin': 'jìmò', 'meaning': 'Lonely', 'category': '心理', 'difficulty': '简单', 'is_exam': True},
+        {'word': '丰富', 'pinyin': 'fēngfù', 'meaning': 'Rich', 'category': '形容词', 'difficulty': '简单', 'is_exam': True},
+        {'word': '广场舞', 'pinyin': 'guǎngchǎngwǔ', 'meaning': 'Square dance', 'category': '文化', 'difficulty': '简单', 'is_exam': False},
+        {'word': '延续', 'pinyin': 'yánxù', 'meaning': 'Continue', 'category': '动词', 'difficulty': '简单', 'is_exam': False},
+        {'word': '退休', 'pinyin': 'tuì休', 'meaning': 'Retire', 'category': '动词', 'difficulty': '简单', 'is_exam': True},
+        {'word': '生活质量', 'pinyin': 'shēnghuó zhìliàng', 'meaning': 'Quality of life', 'category': '名词', 'difficulty': '困难', 'is_exam': True},
+    ],
+    10: [
+        {'word': '简历', 'pinyin': 'jiǎnlì', 'meaning': 'Resume', 'category': '求职', 'difficulty': '简单', 'is_exam': True},
+        {'word': '打杂', 'pinyin': 'dǎzá', 'meaning': 'Odd jobs', 'category': '口语', 'difficulty': '困难', 'is_exam': True},
+        {'word': '录用', 'pinyin': 'lùyòng', 'meaning': 'Hire', 'category': '动词', 'difficulty': '简单', 'is_exam': True},
+        {'word': '项目', 'pinyin': 'xiàngmù', 'meaning': 'Project', 'category': '名词', 'difficulty': '简单', 'is_exam': True},
+        {'word': '学历', 'pinyin': 'xuélì', 'meaning': 'Education background', 'category': '名词', 'difficulty': '简单', 'is_exam': False},
+        {'word': '经验', 'pinyin': 'jīngyàn', 'meaning': 'Experience', 'category': '名词', 'difficulty': '简单', 'is_exam': True},
+    ],
+    11: [
+        {'word': '聋哑人', 'pinyin': 'lóngyǎrén', 'meaning': 'Deaf-mute', 'category': '名词', 'difficulty': '困难', 'is_exam': False},
+        {'word': '尊重', 'pinyin': 'zūnzhòng', 'meaning': 'Respect', 'category': '动词', 'difficulty': '简单', 'is_exam': True},
+        {'word': '自强', 'pinyin': 'zìqiáng', 'meaning': 'Self-improvement', 'category': '精神', 'difficulty': '困难', 'is_exam': True},
+        {'word': '无声', 'pinyin': 'wúshēng', 'meaning': 'Silent', 'category': '形容词', 'difficulty': '简单', 'is_exam': False},
+        {'word': '包容', 'pinyin': 'bāorónɡ', 'meaning': 'Inclusiveness', 'category': '名词', 'difficulty': '简单', 'is_exam': True},
+    ],
+    12: [
+        {'word': '气氛', 'pinyin': 'qìfēn', 'meaning': 'Atmosphere', 'category': '名词', 'difficulty': '简单', 'is_exam': True},
+        {'word': '团圆', 'pinyin': 'tuányuán', 'meaning': 'Reunion', 'category': '动词', 'difficulty': '简单', 'is_exam': True},
+        {'word': '春运', 'pinyin': 'chūnyùn', 'meaning': 'Spring Festival travel', 'category': '文化', 'difficulty': '简单', 'is_exam': False},
+        {'word': '習俗', 'pinyin': 'xísú', 'meaning': 'Custom', 'category': '名词', 'difficulty': '简单', 'is_exam': True},
+        {'word': '压岁钱', 'pinyin': 'yāsuìqián', 'meaning': 'Money for children', 'category': '文化', 'difficulty': '简单', 'is_exam': False},
+        {'word': '放鞭炮', 'pinyin': 'fàngbiānpào', 'meaning': 'Set off firecrackers', 'category': '活动', 'difficulty': '简单', 'is_exam': False},
+        {'word': '春节', 'pinyin': 'chūnjié', 'meaning': 'Spring Festival', 'category': '节日', 'difficulty': '简单', 'is_exam': True},
+    ],
+    13: [
+        {'word': '零花钱', 'pinyin': 'línghuaqián', 'meaning': 'Pocket money', 'category': '名词', 'difficulty': '简单', 'is_exam': True},
+        {'word': '惯', 'pinyin': 'guàn', 'meaning': 'Spoil', 'category': '动词', 'difficulty': '困难', 'is_exam': True},
+        {'word': '理财', 'pinyin': 'lǐcái', 'meaning': 'Manage money', 'category': '动词', 'difficulty': '困难', 'is_exam': True},
+        {'word': '家长', 'pinyin': 'jiāzhǎng', 'meaning': 'Parent', 'category': '名词', 'difficulty': '简单', 'is_exam': False},
+        {'word': '物质', 'pinyin': 'wùzhì', 'meaning': 'Material', 'category': '名词', 'difficulty': '简单', 'is_exam': False},
+        {'word': '信任', 'pinyin': 'xìnrèn', 'meaning': 'Trust', 'category': '动词', 'difficulty': '简单', 'is_exam': True},
+        {'word': '学问', 'pinyin': 'xuéwen', 'meaning': 'Knowledge', 'category': '名词', 'difficulty': '简单', 'is_exam': False},
+    ],
+    14: [
+        {'word': '中介', 'pinyin': 'zhōngjiè', 'meaning': 'Agency', 'category': '名词', 'difficulty': '简单', 'is_exam': False},
+        {'word': '押金', 'pinyin': 'yājīn', 'meaning': 'Deposit', 'category': '名词', 'difficulty': '简单', 'is_exam': True},
+        {'word': '合租', 'pinyin': 'hézū', 'meaning': 'Share rent', 'category': '动词', 'difficulty': '简单', 'is_exam': True},
+        {'word': '租金', 'pinyin': 'zūjīn', 'meaning': 'Rent', 'category': '名词', 'difficulty': '简单', 'is_exam': False},
+        {'word': '独立', 'pinyin': 'dúlì', 'meaning': 'Independent', 'category': '形容词', 'difficulty': '简单', 'is_exam': True},
+        {'word': '房东', 'pinyin': 'fángdōng', 'meaning': 'Landlord', 'category': '名词', 'difficulty': '简单', 'is_exam': False},
+    ]
 }
 
 # (3) 真实赛事资讯
@@ -334,20 +450,33 @@ if menu == "🔖 课前预习":
                 vocab_list = VOCAB_MAP[idx]
                 
                 # 显示该课的所有词汇
-                for word, pinyin, mean, tag in vocab_list:
+                for vocab in vocab_list:
                     with st.container():
                         c1, c2, c3, c4 = st.columns([1.5, 1.5, 1, 0.8])
                         with c1:
-                            st.markdown(f"**{word}**")
+                            st.markdown(f"**{vocab['word']}**")
                         with c2:
-                            st.markdown(f"*{pinyin}*")
+                            st.markdown(f"*{vocab['pinyin']}*")
                         with c3:
-                            st.markdown(f"_{mean}_")
+                            st.markdown(f"_{vocab['meaning']}_")
                         with c4:
                             # 发音按钮
-                            if st.button(f"🔊", key=f"audio_preview_{idx}_{word}", use_container_width=True):
-                                play_audio(word, f"preview_{idx}_{word}")
-                        st.caption(f"📌 {tag}")
+                            if st.button(f"🔊", key=f"audio_preview_{idx}_{vocab['word']}", use_container_width=True):
+                                play_audio(vocab['word'], f"preview_{idx}_{vocab['word']}")
+                        
+                        # 显示标签：分类、难度、竞赛标记
+                        tag_text = f"📌 {vocab['category']}"
+                        if vocab['difficulty'] == '简单':
+                            tag_text += " | ⭐ 简单"
+                        else:
+                            tag_text += " | ⭐⭐ 困难"
+                        
+                        if vocab['is_exam']:
+                            tag_text += " | 🎯 竞赛"
+                        else:
+                            tag_text += " | 📚 学习"
+                        
+                        st.caption(tag_text)
                         st.divider()
             else:
                 st.info("本课节词汇资料待更新")
@@ -409,10 +538,17 @@ if menu == "🏠 赛事资讯":
 # --- 2. 重点词汇 (核心功能) ---
 elif menu == "📖 重点词汇":
     st.title("📖 全书词汇表 (精准版)")
+    st.info("💡 提示：点击难度和竞赛标签可筛选词汇")
     
     # 课程选择器
     lesson_options = ["全部显示"] + [f"第{i}课: {t}" for i, t, topic in LESSONS_DATA]
     selected_option = st.selectbox("选择课程章节", lesson_options)
+    
+    # 难度筛选
+    difficulty_filter = st.radio("筛选难度", ["全部", "简单", "困难"], horizontal=True)
+    
+    # 竞赛标签筛选
+    exam_filter = st.radio("筛选竞赛可用性", ["全部", "仅竞赛用", "非竞赛"], horizontal=True)
     
     # 提取 Lesson ID
     selected_lid = None
@@ -425,29 +561,66 @@ elif menu == "📖 重点词汇":
         if selected_lid is None or selected_lid == lid:
             # 获取课程信息
             lesson_info = next((item for item in LESSONS_DATA if item[0] == lid), None)
-            st.subheader(f"第 {lid} 课：{lesson_info[1]}")
+            st.subheader(f"第 {lid} 课：{lesson_info[1]} ({len(vocab_list)} 词)")
             
-            # 使用 DataFrame 展示，或者卡片展示
-            # 这里为了手机端体验，使用类似卡片的布局
-            for word, pinyin, mean, tag in vocab_list:
+            # 显示该课的所有词汇
+            for vocab in vocab_list:
+                # 应用筛选条件
+                if difficulty_filter != "全部" and vocab['difficulty'] != difficulty_filter:
+                    continue
+                
+                if exam_filter == "仅竞赛用" and not vocab['is_exam']:
+                    continue
+                elif exam_filter == "非竞赛" and vocab['is_exam']:
+                    continue
+                
                 count += 1
                 with st.container():
-                    c1, c2, c3, c4 = st.columns([1.5, 1.5, 1.2, 0.8])
-                    with c1:
-                        st.markdown(f"**{word}**")
-                    with c2:
-                        st.markdown(f"*{pinyin}*")
-                    with c3:
-                        st.write(f"📝 {mean}")
-                    with c4:
+                    # 第一行：汉字、拼音、英文
+                    col1, col2, col3 = st.columns([1.2, 1.5, 1.5])
+                    with col1:
+                        st.markdown(f"### **{vocab['word']}**")
+                    with col2:
+                        st.markdown(f"*{vocab['pinyin']}*")
+                    with col3:
+                        st.markdown(f"_{vocab['meaning']}_")
+                    
+                    # 第二行：标签和发音按钮
+                    col4, col5, col6, col7 = st.columns([1.5, 1, 1, 0.8])
+                    
+                    with col4:
+                        # 类别标签
+                        st.markdown(f"<span style='background:#f0f0f0;padding:3px 8px;border-radius:4px;font-size:11px;'>📌 {vocab['category']}</span>", unsafe_allow_html=True)
+                    
+                    with col5:
+                        # 难度标签
+                        if vocab['difficulty'] == '简单':
+                            difficulty_color = '#90EE90'  # 浅绿色
+                            difficulty_icon = '⭐'
+                        else:
+                            difficulty_color = '#FFB6C1'  # 浅红色
+                            difficulty_icon = '⭐⭐'
+                        st.markdown(f"<span style='background:{difficulty_color};padding:3px 8px;border-radius:4px;font-size:11px;'>{difficulty_icon} {vocab['difficulty']}</span>", unsafe_allow_html=True)
+                    
+                    with col6:
+                        # 竞赛标签
+                        if vocab['is_exam']:
+                            exam_color = '#87CEEB'  # 天蓝色
+                            exam_text = '🎯 竞赛'
+                        else:
+                            exam_color = '#FFE4B5'  # 浅橙色
+                            exam_text = '📚 学习'
+                        st.markdown(f"<span style='background:{exam_color};padding:3px 8px;border-radius:4px;font-size:11px;'>{exam_text}</span>", unsafe_allow_html=True)
+                    
+                    with col7:
                         # 发音按钮
-                        if st.button(f"🔊", key=f"audio_vocab_{lid}_{word}", use_container_width=True):
-                            play_audio(word, f"vocab_{lid}_{word}")
-                    st.markdown(f"<div style='text-align:right'><span style='background:#fff3cd;padding:4px;border-radius:4px;'>{tag}</span></div>", unsafe_allow_html=True)
+                        if st.button(f"🔊", key=f"audio_vocab_{lid}_{vocab['word']}", use_container_width=True):
+                            play_audio(vocab['word'], f"vocab_{lid}_{vocab['word']}")
+                    
                     st.divider()
     
     if count == 0:
-        st.warning("本章节暂无重点词汇数据。")
+        st.warning("没有符合筛选条件的词汇。")
 
 # --- 3. 竞赛视频 ---
 elif menu == "📺 竞赛视频":
