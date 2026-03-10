@@ -438,9 +438,11 @@ with st.sidebar:
     )
     st.divider()
     st.caption("Designed by Wang Yuan")
-
-# 显示当前选中的音频
-display_audio()
+    
+    # 在侧边栏中显示音频播放器
+    st.divider()
+    st.subheader("🔊 发音播放")
+    display_audio()
 
 # --- 0. 课前预习 ---
 if menu == "🔖 课前预习":
