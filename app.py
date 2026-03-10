@@ -5,6 +5,8 @@ from datetime import datetime
 from urllib.parse import quote_plus
 import os
 import json
+from gtts import gTTS
+import io
 
 # ==========================================
 # 1. 页面基础配置
@@ -364,14 +366,25 @@ if menu == "🔖 课前预习":
                 # 显示该课的所有词汇
                 for word, pinyin, mean, tag in vocab_list:
                     with st.container():
-                        c1, c2, c3 = st.columns([2, 2, 1])
+                        c1, c2, c3, c4 = st.columns([1.5, 1.5, 1, 0.8])
                         with c1:
                             st.markdown(f"**{word}**")
                         with c2:
                             st.markdown(f"*{pinyin}*")
                         with c3:
                             st.markdown(f"_{mean}_")
-                        st.caption(f"📌 分类：{tag}")
+                        with c4:
+                            # 发音按钮
+                            if st.button(f"🔊", key=f"audio_preview_{idx}_{word}", use_container_width=True):
+                                try:
+                                    tts = gTTS(word, lang='zh-CN', slow=False)
+                                    audio_buffer = io.BytesIO()
+                                    tts.write_to_fp(audio_buffer)
+                                    audio_buffer.seek(0)
+                                    st.audio(audio_buffer, format="audio/mp3")
+                                except Exception as e:
+                                    st.warning(f"发音生成失败: {str(e)[:30]}")
+                        st.caption(f"📌 {tag}")
                         st.divider()
             else:
                 st.info("本课节词汇资料待更新")
@@ -456,12 +469,25 @@ elif menu == "📖 重点词汇":
             for word, pinyin, mean, tag in vocab_list:
                 count += 1
                 with st.container():
-                    c1, c2 = st.columns([3, 1])
+                    c1, c2, c3, c4 = st.columns([1.5, 1.5, 1.2, 0.8])
                     with c1:
-                        st.markdown(f"**{word}** ({pinyin})")
-                        st.write(f"📝 {mean}")
+                        st.markdown(f"**{word}**")
                     with c2:
-                        st.markdown(f"<div style='text-align:right'><span style='background:#fff3cd;padding:4px;border-radius:4px;'>{tag}</span></div>", unsafe_allow_html=True)
+                        st.markdown(f"*{pinyin}*")
+                    with c3:
+                        st.write(f"📝 {mean}")
+                    with c4:
+                        # 发音按钮
+                        if st.button(f"🔊", key=f"audio_vocab_{lid}_{word}", use_container_width=True):
+                            try:
+                                tts = gTTS(word, lang='zh-CN', slow=False)
+                                audio_buffer = io.BytesIO()
+                                tts.write_to_fp(audio_buffer)
+                                audio_buffer.seek(0)
+                                st.audio(audio_buffer, format="audio/mp3")
+                            except Exception as e:
+                                st.warning(f"发音生成失败: {str(e)[:30]}")
+                    st.markdown(f"<div style='text-align:right'><span style='background:#fff3cd;padding:4px;border-radius:4px;'>{tag}</span></div>", unsafe_allow_html=True)
                     st.divider()
     
     if count == 0:
