@@ -287,66 +287,6 @@ ACHIEVEMENT_BADGES = {
     "任务完成者": {"条件": "提交10个课后任务", "图标": "✅", "积分": 150},
 }
 
-# (7) 文化对比数据
-CULTURAL_COMPARISON = {
-    1: {
-        "中国特色": "重视'体验式学习'，学以致用，注重实践",
-        "对比问题": "你的国家的语言学习方法有什么特点？"
-    },
-    2: {
-        "中国特色": "颜色象征性强：红=吉祥，黄=皇权，绿=和平、希望",
-        "对比问题": "你的文化中，什么颜色代表什么寓意？"
-    },
-    3: {
-        "中国特色": "傣族泼水节象征洗去旧年不幸，迎接新生",
-        "对比问题": "你的国家如何庆祝新年？有相似的传统吗？"
-    },
-    4: {
-        "中国特色": "筷子礼仪繁复，体现了用餐的尊重与秩序",
-        "对比问题": "你的文化中，餐桌礼仪有哪些重要规则？"
-    },
-    5: {
-        "中国特色": "'礼轻情意重'、'面子文化'——关系维持中情感比物质更重要",
-        "对比问题": "在你的文化中，送礼的原则是什么？'面子'重要吗？"
-    },
-    6: {
-        "中国特色": "现代中国家庭朝向平等分工发展，打破传统性别角色",
-        "对比问题": "你的家庭中，家务分工是怎样的？"
-    },
-    7: {
-        "中国特色": "中国是全球网购最发达的国家之一，消费模式创新",
-        "对比问题": "网购在你的国家发展程度如何？人们的消费习惯？"
-    },
-    8: {
-        "中国特色": "移动支付普及率极高（70%+），改变了日常交易方式",
-        "对比问题": "你的国家主要的支付方式是什么？移动支付普及吗？"
-    },
-    9: {
-        "中国特色": "老年活动社交化（广场舞），强调集体性和娱乐性",
-        "对比问题": "你的国家老年人如何安排退休生活？"
-    },
-    10: {
-        "中国特色": "实习是升学和就业的重要环节，企业文化明显",
-        "对比问题": "你的国家学生如何获得工作经验？"
-    },
-    11: {
-        "中国特色": "社会企业和包容理念逐渐形成，帮助弱势群体自我价值实现",
-        "对比问题": "你的社会如何帮助残疾人融入工作和生活？"
-    },
-    12: {
-        "中国特色": "春节传统在城市化进程中演变，年味变淡反映社会发展",
-        "对比问题": "你的文化中，传统节日庆祝方式在改变吗？"
-    },
-    13: {
-        "中国特色": "家长用零花钱教育培养理财意识，强调自主和责任",
-        "对比问题": "你的父母如何教你管理金钱？"
-    },
-    14: {
-        "中国特色": "租房合租文化发达，年轻人独立生活较早，社会包容高",
-        "对比问题": "你的国家年轻人独立生活的年龄和方式？"
-    }
-}
-
 # ==========================================
 # 3. 界面逻辑
 # ==========================================
@@ -358,7 +298,7 @@ with st.sidebar:
     
     menu = st.radio(
         "导航菜单",
-        ["🔖 课前预习", "🏠 赛事资讯", "📖 重点词汇", "📺 竞赛视频", "✍️ 题库实战", "📂 课件资源", "📝 课后任务", "📊 评价系统", " 文化对比"]
+        ["🔖 课前预习", "🏠 赛事资讯", "📖 重点词汇", "📺 竞赛视频", "✍️ 题库实战", "📂 课件资源", "📝 课后任务", "📊 评价系统"]
     )
     st.divider()
     st.caption("Designed by Wang Yuan")
@@ -688,106 +628,3 @@ elif menu == "📊 评价系统":
     st.markdown("---")
     st.caption("📅 评价日期：2026-02-12")
 
-# --- 8. 文化对比（新增）---
-elif menu == "🌏 文化对比":
-    st.title("🌏 跨文化学习 - 中国 vs 你的文化")
-    st.info("📚 通过对比学习，深化对中国文化的理解，反思自己的文化背景")
-    
-    # 课程选择
-    lesson_options = ["全部课程"] + [f"第{i}课: {t}" for i, t, _ in LESSONS_DATA]
-    selected = st.selectbox("选择课程", lesson_options)
-    
-    if selected == "全部课程":
-        # 显示所有文化对比
-        for idx, title, topic in LESSONS_DATA:
-            if idx in CULTURAL_COMPARISON:
-                comp = CULTURAL_COMPARISON[idx]
-                with st.expander(f"第{idx}课：{title}"):
-                    col1, col2 = st.columns(2)
-                    
-                    with col1:
-                        st.markdown("### 🇨🇳 中国特色")
-                        st.markdown(comp["中国特色"])
-                    
-                    with col2:
-                        st.markdown("### 🌍 跨文化思考")
-                        st.markdown(f"**问题：** {comp['对比问题']}")
-                    
-                    st.divider()
-                    
-                    # 用户回答区域
-                    with st.form(f"cultural_form_{idx}"):
-                        user_reflection = st.text_area(
-                            "你的想法或答案：",
-                            placeholder="分享你的文化观点...",
-                            height=80,
-                            key=f"cultural_{idx}"
-                        )
-                        submitted = st.form_submit_button("💭 分享想法")
-                        if submitted and user_reflection:
-                            st.success("✅ 感谢分享！你的思考有助于跨文化理解")
-    else:
-        # 显示单个课程的文化对比
-        lesson_id = int(selected.split("课")[0].replace("第", ""))
-        
-        if lesson_id in CULTURAL_COMPARISON:
-            comp = CULTURAL_COMPARISON[lesson_id]
-            lesson_info = next((item for item in LESSONS_DATA if item[0] == lesson_id), None)
-            
-            st.markdown(f"## 第{lesson_id}课：{lesson_info[1]}")
-            st.divider()
-            
-            col1, col2 = st.columns(2)
-            
-            with col1:
-                st.markdown("### 🇨🇳 中国的做法")
-                st.markdown(f"""
-                <div style='padding:15px; background:#e3f2fd; border-left:5px solid #1976d2; border-radius:5px'>
-                {comp['中国特色']}
-                </div>
-                """, unsafe_allow_html=True)
-            
-            with col2:
-                st.markdown("### 🌍 反思你的文化")
-                st.markdown(f"""
-                <div style='padding:15px; background:#f3e5f5; border-left:5px solid #7b1fa2; border-radius:5px'>
-                {comp['对比问题']}
-                </div>
-                """, unsafe_allow_html=True)
-            
-            st.divider()
-            
-            # 深度思考区域
-            st.subheader("💭 深度思考与讨论")
-            
-            with st.form(f"cultural_discussion_{lesson_id}"):
-                reflection = st.text_area(
-                    "你的文化观察与思考：",
-                    placeholder="例如：在我的国家..., 我认为这个差异产生的原因是...",
-                    height=120
-                )
-                
-                col_submit1, col_submit2 = st.columns(2)
-                with col_submit1:
-                    s1 = st.form_submit_button("💭 保存思考")
-                with col_submit2:
-                    s2 = st.form_submit_button("🔄 生成对比总结")
-                
-                if s1 and reflection:
-                    st.success("✅ 你的思考已保存，继续深化理解！")
-                elif s2 and reflection:
-                    st.info(f"📊 **对比总结**\n\n中国观点：{comp['中国特色']}\n\n你的观察：{reflection[:100]}...")
-            
-            # 文化小知识
-            st.divider()
-            st.markdown("### 🎓 文化小知识")
-            if lesson_id == 4:
-                st.markdown("""
-                **筷子趣闻：** 中国筷子文化有3000多年历史，筷子的使用也反映了南北方的文化差异。
-                在西方，餐具文化同样丰富，不同场景使用不同叉子的规则非常复杂。
-                """)
-            elif lesson_id == 8:
-                st.markdown("""
-                **支付文化：** 中国移动支付发展迅速，但不同国家的支付偏好差异很大。
-                例如北欧国家倾向无现金社会，而某些国家仍以现金为主。
-                """)
