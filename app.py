@@ -5,8 +5,6 @@ from datetime import datetime
 from urllib.parse import quote_plus
 import os
 import json
-import pyttsx3
-import io
 
 # ==========================================
 # 1. 页面基础配置
@@ -374,28 +372,9 @@ if menu == "🔖 课前预习":
                         with c3:
                             st.markdown(f"_{mean}_")
                         with c4:
-                            # 发音按钮
-                            if st.button(f"🔊", key=f"audio_preview_{idx}_{word}", use_container_width=True):
-                                try:
-                                    engine = pyttsx3.init()
-                                    engine.setProperty('rate', 125)
-                                    # 设置中文语言（如果系统支持）
-                                    voices = engine.getProperty('voices')
-                                    for voice in voices:
-                                        if 'Chinese' in voice.name or 'Mandarin' in voice.name:
-                                            engine.setProperty('voice', voice.id)
-                                            break
-                                    
-                                    audio_buffer = io.BytesIO()
-                                    engine.save_to_file(word, '/tmp/tts_temp.wav')
-                                    engine.runAndWait()
-                                    
-                                    with open('/tmp/tts_temp.wav', 'rb') as f:
-                                        audio_data = f.read()
-                                    st.audio(audio_data, format="audio/wav")
-                                    os.remove('/tmp/tts_temp.wav')
-                                except Exception as e:
-                                    st.info(f"💡 点击此处可听发音（本地系统可用）")
+                            # 拼音学习链接
+                            search_url = f"https://www.google.com/search?q={quote_plus(word+' 发音')}"
+                            st.link_button("🔊 听", search_url, use_container_width=True)
                         st.caption(f"📌 {tag}")
                         st.divider()
             else:
@@ -489,27 +468,9 @@ elif menu == "📖 重点词汇":
                     with c3:
                         st.write(f"📝 {mean}")
                     with c4:
-                        # 发音按钮
-                        if st.button(f"🔊", key=f"audio_vocab_{lid}_{word}", use_container_width=True):
-                            try:
-                                engine = pyttsx3.init()
-                                engine.setProperty('rate', 125)
-                                # 设置中文语言（如果系统支持）
-                                voices = engine.getProperty('voices')
-                                for voice in voices:
-                                    if 'Chinese' in voice.name or 'Mandarin' in voice.name:
-                                        engine.setProperty('voice', voice.id)
-                                        break
-                                
-                                engine.save_to_file(word, '/tmp/tts_temp.wav')
-                                engine.runAndWait()
-                                
-                                with open('/tmp/tts_temp.wav', 'rb') as f:
-                                    audio_data = f.read()
-                                st.audio(audio_data, format="audio/wav")
-                                os.remove('/tmp/tts_temp.wav')
-                            except Exception as e:
-                                st.info(f"💡 点击此处可听发音（本地系统可用）")
+                        # 拼音学习链接
+                        search_url = f"https://www.google.com/search?q={quote_plus(word+' 发音')}"
+                        st.link_button("🔊 听", search_url, use_container_width=True)
                     st.markdown(f"<div style='text-align:right'><span style='background:#fff3cd;padding:4px;border-radius:4px;'>{tag}</span></div>", unsafe_allow_html=True)
                     st.divider()
     
