@@ -469,7 +469,7 @@ elif menu == "📺 竞赛视频":
         st.caption("🌟 我们优秀学生的竞赛成果展示")
         st.divider()
         
-        for vid in STUDENT_VIDEO_DATA:
+        for idx, vid in enumerate(STUDENT_VIDEO_DATA):
             with st.container():
                 col1, col2 = st.columns([1, 4])
                 
@@ -480,6 +480,22 @@ elif menu == "📺 竞赛视频":
                     st.markdown(f"### 🎬 {vid['title']}")
                     st.markdown(f"*{vid['desc']}*")
                     st.link_button("观看视频", vid['url'], use_container_width=True)
+                
+                # 观后感评论框
+                st.markdown("#### 💬 分享你的观后感")
+                comment = st.text_area(
+                    "你的评论：",
+                    placeholder="请分享你对这个作品的想法和感受...",
+                    height=80,
+                    key=f"student_comment_{idx}_{vid['title']}"
+                )
+                
+                if comment:
+                    # 添加提交按钮
+                    col_submit1, col_submit2 = st.columns([1, 3])
+                    with col_submit1:
+                        if st.button("📝 提交评论", key=f"submit_btn_{idx}_{vid['title']}"):
+                            st.success("✅ 感谢你的评论！")
                 
                 st.divider()
 
