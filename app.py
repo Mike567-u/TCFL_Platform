@@ -40,9 +40,16 @@ def play_audio(word: str, key_id: str):
     try:
         audio_bytes = generate_speech(word)
         if audio_bytes:
-            st.audio(audio_bytes, format="audio/mp3")
+            # 使用 session_state 保存当前播放的音频
+            st.session_state.current_audio = audio_bytes
+            st.session_state.current_audio_id = key_id
     except Exception as e:
         st.warning(f"播放失败: {str(e)[:30]}")
+
+def display_audio():
+    """显示当前保存在 session_state 中的音频"""
+    if 'current_audio' in st.session_state and st.session_state.current_audio:
+        st.audio(st.session_state.current_audio, format="audio/mp3")
 
 # (1) 课程结构数据
 LESSONS_DATA = [
@@ -415,6 +422,11 @@ ACHIEVEMENT_BADGES = {
 # 3. 界面逻辑
 # ==========================================
 
+# 初始化 session_state
+if 'current_audio' not in st.session_state:
+    st.session_state.current_audio = None
+    st.session_state.current_audio_id = None
+
 # 侧边栏导航
 with st.sidebar:
     st.header("🏆 以赛促学 V15.1")
@@ -426,6 +438,9 @@ with st.sidebar:
     )
     st.divider()
     st.caption("Designed by Wang Yuan")
+
+# 显示当前选中的音频
+display_audio()
 
 # --- 0. 课前预习 ---
 if menu == "🔖 课前预习":
