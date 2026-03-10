@@ -5,6 +5,9 @@ from datetime import datetime
 from urllib.parse import quote_plus
 import os
 import json
+import asyncio
+import io
+from edge_tts import Communicate
 
 # ==========================================
 # 1. 页面基础配置
@@ -19,6 +22,37 @@ st.set_page_config(
 # ==========================================
 # 2. 数据中心 (100% 还原 notebook 数据)
 # ==========================================
+
+# 语音生成缓存函数
+@st.cache_resource
+def get_tts_engine():
+    """初始化TTS引擎"""
+    return "edge-tts"
+
+async def generate_speech(text: str) -> bytes:
+    """生成中文语音"""
+    try:
+        communicate = Communicate(text=text, lang="zh-CN")
+        audio_data = io.BytesIO()
+        
+        async for chunk in communicate.stream():
+            if chunk["type"] == "audio":
+                audio_data.write(chunk["data"])
+        
+        audio_data.seek(0)
+        return audio_data.getvalue()
+    except Exception as e:
+        st.error(f"发音生成失败: {str(e)[:50]}")
+        return None
+
+def play_audio(word: str, key_id: str):
+    """播放词汇发音"""
+    try:
+        audio_bytes = asyncio.run(generate_speech(word))
+        if audio_bytes:
+            st.audio(audio_bytes, format="audio/mp3")
+    except Exception as e:
+        st.warning(f"播放失败: {str(e)[:30]}")
 
 # (1) 课程结构数据
 LESSONS_DATA = [
@@ -334,7 +368,7 @@ with st.sidebar:
     
     menu = st.radio(
         "导航菜单",
-        ["🔖 课前预习", "🏠 赛事资讯", "📖 重点词汇", "📺 竞赛视频", "✍️ 题库实战", "📂 课件资源", "📝 课后任务", "📊 评价系统", "🎯 学习中心", "🌏 文化对比"]
+        ["🔖 课前预习", "🏠 赛事资讯", "📖 重点词汇", "📺 竞赛视频", "✍️ 题库实战", "📂 课件资源", "📝 课后任务", "📊 评价系统", " 文化对比"]
     )
     st.divider()
     st.caption("Designed by Wang Yuan")
@@ -372,9 +406,9 @@ if menu == "🔖 课前预习":
                         with c3:
                             st.markdown(f"_{mean}_")
                         with c4:
-                            # 拼音学习链接
-                            search_url = f"https://www.google.com/search?q={quote_plus(word+' 发音')}"
-                            st.link_button("🔊 听", search_url, use_container_width=True)
+                            # 发音按钮
+                            if st.button(f"🔊", key=f"audio_preview_{idx}_{word}", use_container_width=True):
+                                play_audio(word, f"preview_{idx}_{word}")
                         st.caption(f"📌 {tag}")
                         st.divider()
             else:
@@ -468,9 +502,9 @@ elif menu == "📖 重点词汇":
                     with c3:
                         st.write(f"📝 {mean}")
                     with c4:
-                        # 拼音学习链接
-                        search_url = f"https://www.google.com/search?q={quote_plus(word+' 发音')}"
-                        st.link_button("🔊 听", search_url, use_container_width=True)
+                        # 发音按钮
+                        if st.button(f"🔊", key=f"audio_vocab_{lid}_{word}", use_container_width=True):
+                            play_audio(word, f"vocab_{lid}_{word}")
                     st.markdown(f"<div style='text-align:right'><span style='background:#fff3cd;padding:4px;border-radius:4px;'>{tag}</span></div>", unsafe_allow_html=True)
                     st.divider()
     
@@ -664,83 +698,7 @@ elif menu == "📊 评价系统":
     st.markdown("---")
     st.caption("📅 评价日期：2026-02-12")
 
-# --- 8. 学习中心（新增）---
-elif menu == "🎯 学习中心":
-    st.title("🎯 学习成就中心")
-    
-    # 总体统计
-    col1, col2, col3, col4 = st.columns(4)
-    with col1:
-        st.metric("总积分", "450", "+50")
-    with col2:
-        st.metric("课程进度", "9/14", "64%")
-    with col3:
-        st.metric("获得徽章", "4", "+1")
-    with col4:
-        st.metric("连胜天数", "12", "+1")
-    
-    st.divider()
-    
-    # 成就徽章展示
-    st.subheader("🏅 已获得徽章")
-    achievement_cols = st.columns(4)
-    
-    achieved_badges = ["快速学习者", "问题解决者", "视频迷", "文化使者"]
-    for idx, badge_name in enumerate(achieved_badges):
-        with achievement_cols[idx % 4]:
-            badge_info = ACHIEVEMENT_BADGES[badge_name]
-            st.markdown(f"""
-            <div style='text-align:center; padding:15px; border:2px solid gold; border-radius:10px; background:#fffacd'>
-                <p style='font-size:32px'>{badge_info['图标']}</p>
-                <p style='font-weight:bold'>{badge_name}</p>
-                <p style='font-size:12px'>{badge_info['条件']}</p>
-                <p style='color:gold'>+{badge_info['积分']}分</p>
-            </div>
-            """, unsafe_allow_html=True)
-    
-    st.divider()
-    
-    # 即将获得的徽章
-    st.subheader("🔜 即将获得的徽章")
-    upcoming_cols = st.columns(2)
-    
-    upcoming_badges = [
-        ("全能选手", "还需完成 5 课"),
-        ("词汇大师", "还需掌握 23 个词汇")
-    ]
-    
-    for idx, (badge_name, progress) in enumerate(upcoming_badges):
-        with upcoming_cols[idx]:
-            badge_info = ACHIEVEMENT_BADGES[badge_name]
-            st.markdown(f"""
-            <div style='padding:15px; border:2px dashed gray; border-radius:10px; background:#f0f0f0'>
-                <p style='font-size:28px'>{badge_info['图标']}</p>
-                <p style='font-weight:bold'>{badge_name}</p>
-                <p style='font-size:13px; color:gray'>{progress}</p>
-                <p style='color:green; font-weight:bold'>+{badge_info['积分']}分等待中</p>
-            </div>
-            """, unsafe_allow_html=True)
-    
-    st.divider()
-    
-    # 学习建议
-    st.subheader("💡 个性化学习建议")
-    
-    suggestions = [
-        ("📌 强项", "你在文化理解和题库练习上表现出色，继续保持！"),
-        ("🎯 建议", "加强第6-8课的学习，这些是学生普遍的难点"),
-        ("⏰ 计划", "建议每周完成2-3课，保持学习节奏"),
-        ("🏆 目标", "争取在一个月内获得'全能选手'徽章，加油！"),
-    ]
-    
-    for title, content in suggestions:
-        col1, col2 = st.columns([1, 5])
-        with col1:
-            st.markdown(f"**{title}**")
-        with col2:
-            st.markdown(content)
-
-# --- 9. 文化对比（新增）---
+# --- 8. 文化对比（新增）---
 elif menu == "🌏 文化对比":
     st.title("🌏 跨文化学习 - 中国 vs 你的文化")
     st.info("📚 通过对比学习，深化对中国文化的理解，反思自己的文化背景")
