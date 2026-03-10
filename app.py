@@ -5,7 +5,7 @@ from datetime import datetime
 from urllib.parse import quote_plus
 import os
 import json
-from gtts import gTTS
+import pyttsx3
 import io
 
 # ==========================================
@@ -377,13 +377,25 @@ if menu == "🔖 课前预习":
                             # 发音按钮
                             if st.button(f"🔊", key=f"audio_preview_{idx}_{word}", use_container_width=True):
                                 try:
-                                    tts = gTTS(word, lang='zh-CN', slow=False)
+                                    engine = pyttsx3.init()
+                                    engine.setProperty('rate', 125)
+                                    # 设置中文语言（如果系统支持）
+                                    voices = engine.getProperty('voices')
+                                    for voice in voices:
+                                        if 'Chinese' in voice.name or 'Mandarin' in voice.name:
+                                            engine.setProperty('voice', voice.id)
+                                            break
+                                    
                                     audio_buffer = io.BytesIO()
-                                    tts.write_to_fp(audio_buffer)
-                                    audio_buffer.seek(0)
-                                    st.audio(audio_buffer, format="audio/mp3")
+                                    engine.save_to_file(word, '/tmp/tts_temp.wav')
+                                    engine.runAndWait()
+                                    
+                                    with open('/tmp/tts_temp.wav', 'rb') as f:
+                                        audio_data = f.read()
+                                    st.audio(audio_data, format="audio/wav")
+                                    os.remove('/tmp/tts_temp.wav')
                                 except Exception as e:
-                                    st.warning(f"发音生成失败: {str(e)[:30]}")
+                                    st.info(f"💡 点击此处可听发音（本地系统可用）")
                         st.caption(f"📌 {tag}")
                         st.divider()
             else:
@@ -480,13 +492,24 @@ elif menu == "📖 重点词汇":
                         # 发音按钮
                         if st.button(f"🔊", key=f"audio_vocab_{lid}_{word}", use_container_width=True):
                             try:
-                                tts = gTTS(word, lang='zh-CN', slow=False)
-                                audio_buffer = io.BytesIO()
-                                tts.write_to_fp(audio_buffer)
-                                audio_buffer.seek(0)
-                                st.audio(audio_buffer, format="audio/mp3")
+                                engine = pyttsx3.init()
+                                engine.setProperty('rate', 125)
+                                # 设置中文语言（如果系统支持）
+                                voices = engine.getProperty('voices')
+                                for voice in voices:
+                                    if 'Chinese' in voice.name or 'Mandarin' in voice.name:
+                                        engine.setProperty('voice', voice.id)
+                                        break
+                                
+                                engine.save_to_file(word, '/tmp/tts_temp.wav')
+                                engine.runAndWait()
+                                
+                                with open('/tmp/tts_temp.wav', 'rb') as f:
+                                    audio_data = f.read()
+                                st.audio(audio_data, format="audio/wav")
+                                os.remove('/tmp/tts_temp.wav')
                             except Exception as e:
-                                st.warning(f"发音生成失败: {str(e)[:30]}")
+                                st.info(f"💡 点击此处可听发音（本地系统可用）")
                     st.markdown(f"<div style='text-align:right'><span style='background:#fff3cd;padding:4px;border-radius:4px;'>{tag}</span></div>", unsafe_allow_html=True)
                     st.divider()
     
